@@ -1,0 +1,19 @@
+---
+project_name:
+    name: "Booth"
+
+changes:
+    freeTrafficTest:
+        type: "congestedPeerLink"
+        minUseRatio: 0.1
+    timeLimit: 10
+
+steps:
+    type: "peerLink"
+    asbrIndex: 5
+    peerLinkIndex: 0
+
+execution:
+    oustadingTrafficChangeLimit: 10
+    timeLimit: 10
+    progressInterval: 1

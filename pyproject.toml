@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "epe"
+version = "0.1.0"
+description = ""
+authors = ["Calvin Remsburg <cremsburg@juniper.net>"]
+license = "Apache 2.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+invoke = "^1.7.0"
+pydantic = "^1.9.0"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+pylint = "black"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
