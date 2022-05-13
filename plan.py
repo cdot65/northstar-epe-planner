@@ -1,4 +1,5 @@
 """Data class for Northstar EPE Planner API."""
+# pylint: disable=inconsistent-return-statements
 
 # Standard library
 from typing import Optional
@@ -12,14 +13,15 @@ import requests
 class Plan(BaseModel):
     """Data class object for Northstar EPE Planner Project."""
 
-    name: str
-    project_index: Optional[int] = 0
-    baseurl = "https://northstar.net:8086/epe-plan"
+    baseurl = str
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
         "userID": "python",
     }
+    name: str
+    project_index: Optional[int] = 0
+    token: str
 
     def create_project(self):
         """Create a new project."""

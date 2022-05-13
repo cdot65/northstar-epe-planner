@@ -11,6 +11,14 @@ import yaml
 
 # Local imports
 from plan import Plan
+from northstar import Northstar
+
+
+def login(credentials):
+    """Receive API token for session."""
+    authenticate = Northstar(**credentials)
+
+    return authenticate.create_token()
 
 
 def main():
@@ -36,4 +44,5 @@ if __name__ == "__main__":
     with open('config.yaml', 'r', encoding="utf-8") as file:
         epe = yaml.safe_load(file)
 
+    auth_token = login(epe["northstar"])
     main()

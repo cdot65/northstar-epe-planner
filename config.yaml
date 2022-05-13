@@ -2,6 +2,16 @@
 project_name:
     name: "Booth"
 
+northstar:
+    baseurl: "https://172.25.125.116:8443"
+    headers: 
+        Authorization: "Basic YWRtaW46am5wciExMjM="
+        Content-Type: "application/json"
+    auth:
+        grant_type: "password"
+        username: "admin"
+        password: "jnpr!123"
+
 changes:
     freeTrafficTest:
         type: "congestedPeerLink"
