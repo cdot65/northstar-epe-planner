@@ -1,6 +1,22 @@
 ---
-project_name:
-    name: "Booth"
+project:
+    meta:
+        name: "Booth"
+    changes:
+        freeTrafficTest:
+            type: "congestedPeerLink"
+            minUseRatio: 0.1
+        timeLimit: 10
+
+    steps:
+        type: "peerLink"
+        asbrIndex: 5
+        peerLinkIndex: 0
+
+    execution:
+        oustadingTrafficChangeLimit: 10
+        timeLimit: 10
+        progressInterval: 1
 
 northstar:
     baseurl: "https://172.25.125.116:8443"
@@ -11,19 +27,3 @@ northstar:
         grant_type: "password"
         username: "admin"
         password: "jnpr!123"
-
-changes:
-    freeTrafficTest:
-        type: "congestedPeerLink"
-        minUseRatio: 0.1
-    timeLimit: 10
-
-steps:
-    type: "peerLink"
-    asbrIndex: 5
-    peerLinkIndex: 0
-
-execution:
-    oustadingTrafficChangeLimit: 10
-    timeLimit: 10
-    progressInterval: 1

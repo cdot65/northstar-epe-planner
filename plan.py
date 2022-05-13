@@ -13,13 +13,9 @@ import requests
 class Plan(BaseModel):
     """Data class object for Northstar EPE Planner Project."""
 
-    baseurl = str
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "userID": "python",
-    }
-    name: str
+    baseurl: str
+    headers: dict
+    project_info: dict
     project_index: Optional[int] = 0
     token: str
 
@@ -29,9 +25,10 @@ class Plan(BaseModel):
         try:
             response = requests.request(
                 "POST",
-                self.baseurl,
+                self.baseurl + '/epe-plan',
                 headers=self.headers,
-                data=json.dumps({"name": self.name}),
+                data=json.dumps(self.project_info["meta"]),
+                verify=False
             )
             response.raise_for_status()
 
@@ -51,7 +48,7 @@ class Plan(BaseModel):
         try:
             response = requests.request(
                 "POST",
-                self.baseurl + f"/{self.project_index}/plan-changes",
+                self.baseurl + f"/epe-plan/{self.project_index}/plan-changes",
                 headers=self.headers,
                 data=json.dumps(changes),
             )
@@ -69,7 +66,8 @@ class Plan(BaseModel):
         try:
             response = requests.request(
                 "POST",
-                self.baseurl + f"/{self.project_index}/plan-changes/0/steps",
+                self.baseurl +
+                f"/epe-plan/{self.project_index}/plan-changes/0/steps",
                 headers=self.headers,
                 data=json.dumps(steps),
             )
@@ -87,8 +85,9 @@ class Plan(BaseModel):
         try:
             response = requests.request(
                 "DELETE",
-                self.baseurl + f"/{project_id}",
+                self.baseurl + f"/epe-plan/{project_id}",
                 headers=self.headers,
+                verify=False
             )
             response.raise_for_status()
             self.project_index = 0
@@ -105,7 +104,8 @@ class Plan(BaseModel):
         try:
             response = requests.request(
                 "POST",
-                self.baseurl + f"/{self.project_index}/plan-changes/0/exec",
+                self.baseurl +
+                f"/epe-plan/{self.project_index}/plan-changes/0/exec",
                 headers=self.headers,
                 data=json.dumps(execution),
             )
@@ -123,8 +123,9 @@ class Plan(BaseModel):
         try:
             response = requests.request(
                 "GET",
-                self.baseurl,
+                self.baseurl + "/epe-plan",
                 headers=self.headers,
+                verify=False
             )
             response.raise_for_status()
             projects = response.json()
@@ -141,7 +142,7 @@ class Plan(BaseModel):
         try:
             response = requests.request(
                 "GET",
-                self.baseurl + f"/{self.project_index}/{project_id}",
+                self.baseurl + f"/epe-plan/{self.project_index}/{project_id}",
                 headers=self.headers,
             )
             response.raise_for_status()
@@ -159,7 +160,7 @@ class Plan(BaseModel):
         try:
             response = requests.request(
                 "PUT",
-                self.baseurl + "/settings",
+                self.baseurl + "/epe-plan/settings",
                 headers=self.headers,
                 data=json.dumps({"simulateNorthstarNetworkName": network_id}),
             )
