@@ -4,6 +4,8 @@ Manage an EPE project's planning, changes, steps, and execution.
 
 # Standard library imports
 import time
+import logging
+import http.client as http_client
 
 # 3rd Party imports
 import ipdb
@@ -24,12 +26,29 @@ def login(credentials):
 def main():
     """Main execution block."""
 
+    http_client.HTTPConnection.debuglevel = 1
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.DEBUG)
+    requests_log = logging.getLogger("requests.packages.urllib3")
+    requests_log.setLevel(logging.DEBUG)
+    requests_log.propagate = True
+
+    # insert authorization into headers
+    headers = epe["northstar"]["headers"]
+    headers["Authorization"] = f"Bearer {auth_token}"
+
     # create project object, passing in `project_name` as kwargs
-    project = Plan(**epe["project_name"])
+    project = Plan(
+        baseurl=epe["northstar"]["baseurl"],
+        token=auth_token,
+        headers=headers,
+        project_info=epe["project"]
+    )
+
+    ipdb.set_trace(context=5)
 
     # execute the creation of our project
     project.create_project()
-    ipdb.set_trace(context=5)
 
     # wait 5 seconds and then create the changes for our newly created plan
     time.sleep(5)
