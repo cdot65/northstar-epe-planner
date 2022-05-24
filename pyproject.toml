@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "northstar_epe_planner"
+version = "0.0.1"
+description = "Package to help interact with Northstar's EPE Planner"
+authors = ["Calvin Remsburg <cremsburg.dev@gmail.com>"]
+license = "Apache 2.0"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.27.1"
+pydantic = "^1.9.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+flake8-black = "^0.3.3"
+flake8 = "^4.0.1"
+invoke = "^1.7.1"
+wheel = "^0.37.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
