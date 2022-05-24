@@ -1,7 +1,0 @@
-invoke==1.7.0
-pydantic==1.9.0
-requests==2.27.1
-ipdb==0.13.9
-pylint==2.13.8
-black==22.3.0
-PyYAML==6.0
