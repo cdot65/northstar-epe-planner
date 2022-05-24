@@ -1,12 +1,8 @@
-[![PyPI](https://img.shields.io/pypi/v/napalm.svg)](https://pypi.python.org/pypi/napalm)
-[![PyPI versions](https://img.shields.io/pypi/pyversions/napalm.svg)](https://pypi.python.org/pypi/napalm)
-[![Actions Build](https://github.com/napalm-automation/napalm/actions/workflows/commit.yaml/badge.svg?branch=develop)](https://github.com/napalm-automation/napalm/actions/workflows/commit.yaml)
+# Northstar EPE Planner Package
+
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-NAPALM
-======
-
-NAPALM (Network Automation and Programmability Abstraction Layer with Multivendor support) is a Python library that implements a set of functions to interact with different router vendor devices using a unified API.
+Northstar EPE Planner is a package that will help you interact with Northstar's EPE API.
 
 ![NAPALM logo](static/logo.png?raw=true "NAPALM logo")
 
