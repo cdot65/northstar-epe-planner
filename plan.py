@@ -13,11 +13,9 @@ import requests
 class Plan(BaseModel):
     """Data class object for Northstar EPE Planner Project."""
 
-    baseurl: str
-    headers: dict
-    project_info: dict
-    project_index: Optional[int] = 0
-    token: str
+    server: dict
+    project: dict
+    index: Optional[int] = 0
 
     def create_project(self):
         """Create a new project."""
@@ -27,14 +25,14 @@ class Plan(BaseModel):
                 "POST",
                 self.baseurl + '/epe-plan',
                 headers=self.headers,
-                data=json.dumps(self.project_info["meta"]),
+                data=json.dumps(self.project["meta"]),
                 verify=False
             )
             response.raise_for_status()
 
             if response.status_code == 202:
                 index = response.json()
-                self.project_index = index["projectIndex"]
+                self.index = index["projectIndex"]
 
                 return response
 
