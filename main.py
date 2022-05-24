@@ -5,25 +5,18 @@ Manage an EPE project's planning, changes, steps, and execution.
 # Standard library imports
 import logging
 import http.client as http_client
+import argparse
 
 # 3rd Party imports
 import ipdb
 import yaml
 
 # Local imports
-from northstar import NorthstarHelper
+from epe_planner.northstar import NorthstarHelper
 
 
 def main():
     """Main execution block."""
-
-    # debug all HTTP operations
-    http_client.HTTPConnection.debuglevel = 1
-    logging.basicConfig()
-    logging.getLogger().setLevel(logging.DEBUG)
-    requests_log = logging.getLogger("requests.packages.urllib3")
-    requests_log.setLevel(logging.DEBUG)
-    requests_log.propagate = True
 
     # create project object, passing in YAML file objects
     x = NorthstarHelper(server=epe["server"], project=epe["project"])
@@ -44,8 +37,22 @@ def main():
 
 if __name__ == "__main__":
 
+    parser = argparse.ArgumentParser(description="Configuration Parameters")
+    parser.add_argument(
+        "--config", dest="config", type=str, help="path to configuration file"
+    )
+    args = parser.parse_args()
+
     # load contents of our config.yaml file into an object named `epe`
-    with open("config.yaml", "r", encoding="utf-8") as file:
+    with open(args.config, "r", encoding="utf-8") as file:
         epe = yaml.safe_load(file)
+
+    # debug all HTTP operations
+    http_client.HTTPConnection.debuglevel = 1
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.DEBUG)
+    requests_log = logging.getLogger("requests.packages.urllib3")
+    requests_log.setLevel(logging.DEBUG)
+    requests_log.propagate = True
 
     main()

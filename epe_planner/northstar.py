@@ -1,5 +1,4 @@
 """Data class for Northstar API."""
-# pylint: disable=inconsistent-return-statements
 
 # Standard library
 from typing import Any
@@ -61,6 +60,44 @@ class NorthstarHelper(BaseModel):
             path = path[1:]
 
         return f"{self.baseurl}/{path}"
+
+    def get(self, path, headers):
+        """HTTP GET method."""
+        return self.send("GET", path, headers)
+
+    def put(self, path, headers, data=None):
+        """HTTP PUT method."""
+        return self.send("PUT", path, headers, data)
+
+    def post(self, path, headers, data=None):
+        """HTTP POST method."""
+        return self.send("POST", path, headers, data)
+
+    def delete(self, path, headers, data=None):
+        """HTTP DELETE method."""
+        return self.send("DELETE", path, headers, data)
+
+    def send(self, method, path, headers, data=None):
+        """Build the URL, handle the response of API calls."""
+
+        url = self._path_strip(path)
+
+        print(f"url: {url}")
+        print(f"method: {method}")
+        print(f"path: {path}")
+        print(f"headers: {headers}")
+        print(f"data: {data}")
+
+        response = requests.request(
+            method,
+            url,
+            headers=headers,
+            data=json.dumps(data),
+            verify=False,
+        )
+        response.raise_for_status()
+
+        return response
 
     def create_project(self):
         """Create our project for this session."""
@@ -168,41 +205,3 @@ class NorthstarHelper(BaseModel):
         except requests.exceptions.RequestException as response_error:
             # Gracefully exit upon reaching an error
             raise SystemExit from response_error
-
-    def send(self, method, path, headers, data=None):
-        """Build the URL, handle the response of API calls."""
-
-        url = self._path_strip(path)
-
-        print(f"url: {url}")
-        print(f"method: {method}")
-        print(f"path: {path}")
-        print(f"headers: {headers}")
-        print(f"data: {data}")
-
-        response = requests.request(
-            method,
-            url,
-            headers=headers,
-            data=json.dumps(data),
-            verify=False,
-        )
-        response.raise_for_status()
-
-        return response
-
-    def get(self, path, headers):
-        """HTTP GET method."""
-        return self.send("GET", path, headers)
-
-    def put(self, path, headers, data=None):
-        """HTTP PUT method."""
-        return self.send("PUT", path, headers, data)
-
-    def post(self, path, headers, data=None):
-        """HTTP POST method."""
-        return self.send("POST", path, headers, data)
-
-    def delete(self, path, headers, data=None):
-        """HTTP DELETE method."""
-        return self.send("DELETE", path, headers, data)
