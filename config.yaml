@@ -18,8 +18,9 @@ project:
         timeLimit: 10
         progressInterval: 1
 
-northstar:
-    baseurl: "https://172.25.125.116:8443"
+server:
+    baseurl: "172.25.125.116:8443"
+    validate_certs: False
     headers: 
         Authorization: "Basic YWRtaW46am5wciExMjM="
         Content-Type: "application/json"
